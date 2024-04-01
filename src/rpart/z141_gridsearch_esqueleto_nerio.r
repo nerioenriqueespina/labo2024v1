@@ -107,8 +107,11 @@ dir.create("./exp/HT2020/", showWarnings = FALSE)
 archivo_salida <- "./exp/HT2020/gridsearch.txt"
 
 # genero la data.table donde van los resultados del Grid Search
-tb_grid_search <- data.table( max_depth = integer(),
+tb_grid_search <- data.table( 
+                              cp = numeric(),
+                              max_depth = integer(),
                               min_split = integer(),
+                              min_bucket = integer(),
                               ganancia_promedio = numeric() )
 
 
