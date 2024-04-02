@@ -120,8 +120,8 @@ tb_grid_search <- data.table(
 for (vmax_depth in c(4, 6, 8, 10, 12, 14)) {
   for (vmin_split in c(1000, 800, 600, 400, 200, 100, 50, 20, 10)) {
     # notar como se agrega
-    for (vminbucket in c(2, 10, 20)){
-      for (vcp in c(-1, 0, 1)){
+    for (vminbucket in c(2, 10, 20, 30, 40, 100, 300, 500)){
+      for (vcp in c(-1, -0.75, -0.5, 0, 0.25)){
 
         # vminsplit  minima cantidad de registros en un nodo para hacer el split
         param_basicos <- list(
