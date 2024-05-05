@@ -51,11 +51,11 @@ AgregarVariables_IntraMes <- function(dataset) {
   # creo un ctr_quarter que tenga en cuenta cuando
   # los clientes hace 3 menos meses que estan
   dataset[, ctrx_quarter_normalizado := ctrx_quarter]
-  dataset[cliente_antiguedad == 1, ctrx_quarter_normalizado := ctrx_quarter * 5]
-  dataset[cliente_antiguedad == 2, ctrx_quarter_normalizado := ctrx_quarter * 2]
+  dataset[cliente_antiguedad == 1, ctrx_quarter_normalizado := as.double(ctrx_quarter * 5)]
+  dataset[cliente_antiguedad == 2, ctrx_quarter_normalizado := as.double(ctrx_quarter * 2)]
   dataset[
     cliente_antiguedad == 3,
-    ctrx_quarter_normalizado := ctrx_quarter * 1.2
+    ctrx_quarter_normalizado := as.double(ctrx_quarter * 1.2)
   ]
 
   # variable extraida de una tesis de maestria de Irlanda
