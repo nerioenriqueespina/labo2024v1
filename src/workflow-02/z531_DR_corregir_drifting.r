@@ -135,10 +135,7 @@ AgregarVariables_IntraMes <- function(dataset) {
   dataset$mes <- as.numeric(substr(as.character(dataset$foto_mes), 5, 6))
   meses <- c("enero", "febrero", "marzo", "abril", "mayo", "junio","julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre")
   dataset$mes_nombre <- meses[dataset$mes]
-  if (exists("mes")) {
-    dataset <- dataset[, -which(names(dataset) == "mes")]
-  }
-
+  dataset <- subset(dataset, select = -mes)
   # valvula de seguridad para evitar valores infinitos
   # paso los infinitos a NULOS
   infinitos <- lapply(
