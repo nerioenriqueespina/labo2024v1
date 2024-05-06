@@ -1,8 +1,8 @@
 ##############################S
-# EXPERIMENTO 2
-# Se realiza experimento 2, agregando la variable mes_nombre y corrigiendo error en configuración de meses de entrenamiento/testing
-# ya que en experimento 1, había un error en los meses elegidos
-# En este experimento, se toman meses fuera de la pandemia, para validar además el impacto de los lags en datos regulares
+# EXPERIMENTO 3
+# Usando meses que están fuera de la pandemia se procede a ejecutar experimento 3
+# La idea del experimento 3 es hacer una prueba idéntica al experimento 2, con la diferencia que en este caso se elimina la valiable mes_nombre
+# El propósito consiste en comprobar que la variable puede aportar una mejora en la ganancia
 ##############################
 
 # Corrida general del Workflow de Guantes Blancos
@@ -62,7 +62,7 @@ source( exp_lib )
 
 #------------------------------------------------------------------------------
 
-# pmyexp <- "DT0002_2"
+# pmyexp <- "DT0002_3"
 # parch <- "competencia_2024.csv.gz"
 # pserver <- "local"
 
@@ -82,8 +82,8 @@ DT_incorporar_dataset_default <- function( pmyexp, parch, pserver="local")
 }
 #------------------------------------------------------------------------------
 
-# pmyexp <- "CA0001_2"
-# pinputexps <- "DT0002_2"
+# pmyexp <- "CA0001_3"
+# pinputexps <- "DT0002_3"
 # pserver <- "local"
 
 CA_catastrophe_default <- function( pmyexp, pinputexps, pserver="local")
@@ -102,8 +102,8 @@ CA_catastrophe_default <- function( pmyexp, pinputexps, pserver="local")
 # Data Drifting de Guantes Blancos
 
 
-# pmyexp <- "DR0001_2"
-# pinputexps <- "CA0001_2"
+# pmyexp <- "DR0001_3"
+# pinputexps <- "CA0001_3"
 # pserver <- "local"
 
 DR_drifting_guantesblancos <- function( pmyexp, pinputexps, pserver="local")
@@ -123,8 +123,8 @@ DR_drifting_guantesblancos <- function( pmyexp, pinputexps, pserver="local")
 }
 #------------------------------------------------------------------------------
 
-# pmyexp <- "FE0001_2"
-# pinputexps <- "DR0001_2"
+# pmyexp <- "FE0001_3"
+# pinputexps <- "DR0001_3"
 # pserver <- "local"
 
 FE_historia_guantesblancos <- function( pmyexp, pinputexps, pserver="local")
@@ -326,18 +326,18 @@ corrida_guantesblancos_202109 <- function( pnombrewf, pvirgen=FALSE )
 {
   if( -1 == exp_wf_init( pnombrewf, pvirgen) ) return(0) # linea fija
 
-  DT_incorporar_dataset_default( "DT0001_2", "competencia_2024.csv.gz")
-  CA_catastrophe_default( "CA0001_2", "DT0001_2" )
+  DT_incorporar_dataset_default( "DT0001_3", "competencia_2024.csv.gz")
+  CA_catastrophe_default( "CA0001_3", "DT0001_3" )
 
-  DR_drifting_guantesblancos( "DR0001_2", "CA0001_2" )
-  FE_historia_guantesblancos( "FE0001_2", "DR0001_2" )
+  DR_drifting_guantesblancos( "DR0001_3", "CA0001_3" )
+  FE_historia_guantesblancos( "FE0001_3", "DR0001_3" )
 
-  TS_strategy_guantesblancos_202109( "TS0001_2", "FE0001_2" )
+  TS_strategy_guantesblancos_202109( "TS0001_3", "FE0001_3" )
 
-  HT_tuning_guantesblancos( "HT0001_2", "TS0001_2" )
+  HT_tuning_guantesblancos( "HT0001_3", "TS0001_3" )
 
   # El ZZ depente de HT y TS
-  ZZ_final_guantesblancos( "ZZ0001_2", c("HT0001_2","TS0001_2") )
+  ZZ_final_guantesblancos( "ZZ0001_3", c("HT0001_3","TS0001_3") )
 
 
   exp_wf_end( pnombrewf, pvirgen ) # linea fija
@@ -347,19 +347,19 @@ corrida_guantesblancos_202109 <- function( pnombrewf, pvirgen=FALSE )
 # Que predice 202107
 # genera completas curvas de ganancia
 #   NO genera archivos para Kaggle
-# por favor notal como este script parte de FE0001_2
+# por favor notal como este script parte de FE0001_3
 
 corrida_guantesblancos_202107 <- function( pnombrewf, pvirgen=FALSE )
 {
   if( -1 == exp_wf_init( pnombrewf, pvirgen) ) return(0) # linea fija
 
-  # Ya tengo corrido FE0001_2 y parto de alli
-  TS_strategy_guantesblancos_202107( "TS0002_2", "FE0001_2" )
+  # Ya tengo corrido FE0001_3 y parto de alli
+  TS_strategy_guantesblancos_202107( "TS0002_3", "FE0001_3" )
 
-  HT_tuning_guantesblancos( "HT0002_2", "TS0002_2" )
+  HT_tuning_guantesblancos( "HT0002_3", "TS0002_3" )
 
   # El ZZ depente de HT y TS
-  ZZ_final_guantesblancos( "ZZ0002_2", c("HT0002_2", "TS0002_2") )
+  ZZ_final_guantesblancos( "ZZ0002_3", c("HT0002_3", "TS0002_3") )
 
 
   exp_wf_end( pnombrewf, pvirgen ) # linea fija
@@ -370,13 +370,13 @@ corrida_guantesblancos_202107 <- function( pnombrewf, pvirgen=FALSE )
 
 
 # Hago primero esta corrida que me genera los experimentos
-# DT0001_2, CA0001_2, DR0001_2, FE0001_2, TS0001_2, HT0001_2 y ZZ0001_2
-corrida_guantesblancos_202109( "gb01_2" )
+# DT0001_3, CA0001_3, DR0001_3, FE0001_3, TS0001_3, HT0001_3 y ZZ0001_3
+corrida_guantesblancos_202109( "gb01_3" )
 
 
-# Luego partiendo de  FE0001_2
-# genero TS0002_2, HT0002_2 y ZZ0002_2
+# Luego partiendo de  FE0001_3
+# genero TS0002_3, HT0002_3 y ZZ0002_3
 
-corrida_guantesblancos_202107( "gb02_2" )
+corrida_guantesblancos_202107( "gb02_3" )
 
  
