@@ -292,7 +292,7 @@ ZZ_final_guantesblancos <- function( pmyexp, pinputexps, pserver="local")
   # Que modelos quiero, segun su posicion en el ranking e la Bayesian Optimizacion, ordenado por ganancia descendente
   param_local$modelos_rank <- c(1)
 
-  param_local$kaggle$envios_desde <-  9500L
+  param_local$kaggle$envios_desde <-  10000L
   param_local$kaggle$envios_hasta <- 11500L
   param_local$kaggle$envios_salto <-   500L
 
