@@ -69,7 +69,7 @@ source( exp_lib )
 
 #------------------------------------------------------------------------------
 
-# pmyexp <- "DT0002_10"
+# pmyexp <- "DT0002_10a"
 # parch <- "competencia_2024.csv.gz"
 # pserver <- "local"
 
@@ -89,8 +89,8 @@ DT_incorporar_dataset_default <- function( pmyexp, parch, pserver="local")
 }
 #------------------------------------------------------------------------------
 
-# pmyexp <- "CA0001_10"
-# pinputexps <- "DT0002_10"
+# pmyexp <- "CA0001_10a"
+# pinputexps <- "DT0002_10a"
 # pserver <- "local"
 
 CA_catastrophe_default <- function( pmyexp, pinputexps, pserver="local")
@@ -109,8 +109,8 @@ CA_catastrophe_default <- function( pmyexp, pinputexps, pserver="local")
 # Data Drifting de Guantes Blancos
 
 
-# pmyexp <- "DR0001_10"
-# pinputexps <- "CA0001_10"
+# pmyexp <- "DR0001_10a"
+# pinputexps <- "CA0001_10a"
 # pserver <- "local"
 
 DR_drifting_guantesblancos <- function( pmyexp, pinputexps, pserver="local")
@@ -130,8 +130,8 @@ DR_drifting_guantesblancos <- function( pmyexp, pinputexps, pserver="local")
 }
 #------------------------------------------------------------------------------
 
-# pmyexp <- "FE0001_10"
-# pinputexps <- "DR0001_10"
+# pmyexp <- "FE0001_10a"
+# pinputexps <- "DR0001_10a"
 # pserver <- "local"
 
 FE_historia_guantesblancos <- function( pmyexp, pinputexps, pserver="local")
@@ -333,18 +333,18 @@ corrida_guantesblancos_202109 <- function( pnombrewf, pvirgen=FALSE )
 {
   if( -1 == exp_wf_init( pnombrewf, pvirgen) ) return(0) # linea fija
 
-  DT_incorporar_dataset_default( "DT0001_10", "competencia_2024.csv.gz")
-  CA_catastrophe_default( "CA0001_10", "DT0001_10" )
+  DT_incorporar_dataset_default( "DT0001_10a", "competencia_2024.csv.gz")
+  CA_catastrophe_default( "CA0001_10a", "DT0001_10a" )
 
-  DR_drifting_guantesblancos( "DR0001_10", "CA0001_10" )
-  FE_historia_guantesblancos( "FE0001_10", "DR0001_10" )
+  DR_drifting_guantesblancos( "DR0001_10a", "CA0001_10a" )
+  FE_historia_guantesblancos( "FE0001_10a", "DR0001_10a" )
 
-  # TS_strategy_guantesblancos_202109( "TS0001_10", "FE0001_10" )
+  # TS_strategy_guantesblancos_202109( "TS0001_10a", "FE0001_10a" )
 
-  # HT_tuning_guantesblancos( "HT0001_10", "TS0001_10" )
+  # HT_tuning_guantesblancos( "HT0001_10a", "TS0001_10a" )
 
   # # El ZZ depente de HT y TS
-  # ZZ_final_guantesblancos( "ZZ0001_10", c("HT0001_10","TS0001_10") )
+  # ZZ_final_guantesblancos( "ZZ0001_10a", c("HT0001_10a","TS0001_10a") )
 
 
   exp_wf_end( pnombrewf, pvirgen ) # linea fija
@@ -354,19 +354,19 @@ corrida_guantesblancos_202109 <- function( pnombrewf, pvirgen=FALSE )
 # Que predice 202107
 # genera completas curvas de ganancia
 #   NO genera archivos para Kaggle
-# por favor notal como este script parte de FE0001_10
+# por favor notal como este script parte de FE0001_10a
 
 corrida_guantesblancos_202107 <- function( pnombrewf, pvirgen=FALSE )
 {
   if( -1 == exp_wf_init( pnombrewf, pvirgen) ) return(0) # linea fija
 
-  # Ya tengo corrido FE0001_10 y parto de alli
-  TS_strategy_guantesblancos_202107( "TS0002_10", "FE0001_10" )
+  # Ya tengo corrido FE0001_10a y parto de alli
+  TS_strategy_guantesblancos_202107( "TS0002_10a", "FE0001_10a" )
 
-  HT_tuning_guantesblancos( "HT0002_10", "TS0002_10" )
+  HT_tuning_guantesblancos( "HT0002_10a", "TS0002_10a" )
 
   # El ZZ depente de HT y TS
-  ZZ_final_guantesblancos( "ZZ0002_10", c("HT0002_10", "TS0002_10") )
+  ZZ_final_guantesblancos( "ZZ0002_10a", c("HT0002_10a", "TS0002_10a") )
 
 
   exp_wf_end( pnombrewf, pvirgen ) # linea fija
@@ -377,12 +377,12 @@ corrida_guantesblancos_202107 <- function( pnombrewf, pvirgen=FALSE )
 
 
 # Hago primero esta corrida que me genera los experimentos
-# DT0001_10, CA0001_10, DR0001_10, FE0001_10, TS0001_10, HT0001_10 y ZZ0001_10
-corrida_guantesblancos_202109( "gb01_10" )
+# DT0001_10a, CA0001_10a, DR0001_10a, FE0001_10a, TS0001_10a, HT0001_10a y ZZ0001_10a
+corrida_guantesblancos_202109( "gb01_10a" )
 
 
-# Luego partiendo de  FE0001_10
-# genero TS0002_10, HT0002_10 y ZZ0002_10
+# Luego partiendo de  FE0001_10a
+# genero TS0002_10a, HT0002_10a y ZZ0002_10a
 
-corrida_guantesblancos_202107( "gb02_10" )
+corrida_guantesblancos_202107( "gb02_10a" )
 
