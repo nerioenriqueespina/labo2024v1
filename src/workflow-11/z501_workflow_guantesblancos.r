@@ -1,8 +1,8 @@
 ##############################
-# EXPERIMENTO 9
-# El experimento 9 analiza meses hasta 202007
+# EXPERIMENTO 10
+# El experimento 10 analiza meses hasta 202005
 # Sirve como punto de comparación para el experimento
-# 10 en el cual se estará incluyendo el mes 202006 u 202005
+# 9 en el cual se hizo el análisis hasta 202007
 # El propósito es determinar si existe un problema con los lags
 # cuando en el experimento 10 se agregue información
 # del 202005 y 202004
@@ -69,7 +69,7 @@ source( exp_lib )
 
 #------------------------------------------------------------------------------
 
-# pmyexp <- "DT0002_9"
+# pmyexp <- "DT0002_11"
 # parch <- "competencia_2024.csv.gz"
 # pserver <- "local"
 
@@ -78,7 +78,7 @@ DT_incorporar_dataset_default <- function( pmyexp, parch, pserver="local")
   if( -1 == (param_local <- exp_init_datos( pmyexp, parch, pserver ))$resultado ) return( 0 )# linea fija
 
 
-  param_local$meta$script <- "/src/workflow-09/z511_DT_incorporar_dataset.r"
+  param_local$meta$script <- "/src/workflow-11/z511_DT_incorporar_dataset.r"
 
   param_local$primarykey <- c("numero_de_cliente", "foto_mes" )
   param_local$entity_id <- c("numero_de_cliente" )
@@ -89,8 +89,8 @@ DT_incorporar_dataset_default <- function( pmyexp, parch, pserver="local")
 }
 #------------------------------------------------------------------------------
 
-# pmyexp <- "CA0001_9"
-# pinputexps <- "DT0002_9"
+# pmyexp <- "CA0001_11"
+# pinputexps <- "DT0002_11"
 # pserver <- "local"
 
 CA_catastrophe_default <- function( pmyexp, pinputexps, pserver="local")
@@ -98,7 +98,7 @@ CA_catastrophe_default <- function( pmyexp, pinputexps, pserver="local")
   if( -1 == (param_local <- exp_init( pmyexp, pinputexps, pserver ))$resultado ) return( 0 )# linea fija
 
 
-  param_local$meta$script <- "/src/workflow-09/z521_CA_reparar_dataset.r"
+  param_local$meta$script <- "/src/workflow-11/z521_CA_reparar_dataset.r"
 
   # Opciones MachineLearning EstadisticaClasica Ninguno
   param_local$metodo <- "MachineLearning" # MachineLearning EstadisticaClasica Ninguno
@@ -109,8 +109,8 @@ CA_catastrophe_default <- function( pmyexp, pinputexps, pserver="local")
 # Data Drifting de Guantes Blancos
 
 
-# pmyexp <- "DR0001_9"
-# pinputexps <- "CA0001_9"
+# pmyexp <- "DR0001_11"
+# pinputexps <- "CA0001_11"
 # pserver <- "local"
 
 DR_drifting_guantesblancos <- function( pmyexp, pinputexps, pserver="local")
@@ -118,7 +118,7 @@ DR_drifting_guantesblancos <- function( pmyexp, pinputexps, pserver="local")
   if( -1 == (param_local <- exp_init( pmyexp, pinputexps, pserver ))$resultado ) return( 0 )# linea fija
 
 
-  param_local$meta$script <- "/src/workflow-09/z531_DR_corregir_drifting.r"
+  param_local$meta$script <- "/src/workflow-11/z531_DR_corregir_drifting.r"
 
   # No me engraso las manos con Feature Engineering manual
   param_local$variables_intrames <- TRUE
@@ -130,8 +130,8 @@ DR_drifting_guantesblancos <- function( pmyexp, pinputexps, pserver="local")
 }
 #------------------------------------------------------------------------------
 
-# pmyexp <- "FE0001_9"
-# pinputexps <- "DR0001_9"
+# pmyexp <- "FE0001_11"
+# pinputexps <- "DR0001_11"
 # pserver <- "local"
 
 FE_historia_guantesblancos <- function( pmyexp, pinputexps, pserver="local")
@@ -139,7 +139,7 @@ FE_historia_guantesblancos <- function( pmyexp, pinputexps, pserver="local")
   if( -1 == (param_local <- exp_init( pmyexp, pinputexps, pserver ))$resultado ) return( 0 )# linea fija
 
 
-  param_local$meta$script <- "/src/workflow-09/z541_FE_historia.r"
+  param_local$meta$script <- "/src/workflow-11/z541_FE_historia.r"
 
   param_local$lag1 <- TRUE
   param_local$lag2 <- FALSE
@@ -169,16 +169,16 @@ FE_historia_guantesblancos <- function( pmyexp, pinputexps, pserver="local")
   # No me engraso las manos con las variables nuevas agregadas por un RF
   # esta parte demora mucho tiempo en correr, y estoy en modo manos_limpias
   param_local$RandomForest$run <- TRUE
-  param_local$RandomForest$num.trees <- 20
-  param_local$RandomForest$max.depth <- 4
-  param_local$RandomForest$min.node.size <- 1000
-  param_local$RandomForest$mtry <- 40
+  param_local$RandomForest$num.trees <- 100
+  param_local$RandomForest$max.depth <- 8
+  param_local$RandomForest$min.node.size <- 500
+  param_local$RandomForest$mtry <- 20
 
   # no me engraso las manos con los Canaritos Asesinos
   # varia de 0.0 a 2.0, si es 0.0 NO se activan
-  param_local$CanaritosAsesinos$ratio <- 0.0
+  param_local$CanaritosAsesinos$ratio <- 1.5
   # desvios estandar de la media, para el cutoff
-  param_local$CanaritosAsesinos$desvios <- 4.0
+  param_local$CanaritosAsesinos$desvios <- 1.5
 
   return( exp_correr_script( param_local ) ) # linea fija
 }
@@ -191,21 +191,19 @@ TS_strategy_guantesblancos_202109 <- function( pmyexp, pinputexps, pserver="loca
 {
   if( -1 == (param_local <- exp_init( pmyexp, pinputexps, pserver ))$resultado ) return( 0 )# linea fija
 
-  param_local$meta$script <- "/src/workflow-09/z551_TS_training_strategy.r"
+  param_local$meta$script <- "/src/workflow-11/z551_TS_training_strategy.r"
 
 
   param_local$future <- c(202109)
-  param_local$final_train <- c(202107, 202106, 202105, 202104, 202103)
-  # param_local$final_train <- c(202101, 202102, 202103, 202105, 202107)
+  param_local$final_train <- c(202107, 202106, 202105, 202104, 202103, 202102, 202101, 202012, 202011, 202010, 202009, 202008, 202007, 202006, 202005)
 
-
-  param_local$train$training <- c(202105, 202104, 202103, 202102, 202101)
+  param_local$train$training <- c(202105, 202104, 202103, 202102, 202101, 202012, 202011, 202010, 202009, 202008, 202007, 202006, 202005)
   param_local$train$validation <- c(202106)
   param_local$train$testing <- c(202107)
 
   # Atencion  0.1  de  undersampling de la clase mayoritaria,  los CONTINUA
   # 1.0 significa NO undersampling ,  0.1  es quedarse con el 10% de los CONTINUA
-  param_local$train$undersampling <- 0.2
+  param_local$train$undersampling <- 0.35
 
   return( exp_correr_script( param_local ) ) # linea fija
 }
@@ -218,14 +216,14 @@ TS_strategy_guantesblancos_202107 <- function( pmyexp, pinputexps, pserver="loca
 {
   if( -1 == (param_local <- exp_init( pmyexp, pinputexps, pserver ))$resultado ) return( 0 )# linea fija
 
-  param_local$meta$script <- "/src/workflow-09/z551_TS_training_strategy.r"
+  param_local$meta$script <- "/src/workflow-11/z551_TS_training_strategy.r"
 
 
   param_local$future <- c(202107)
   param_local$final_train <- c(202105, 202104, 202103, 202102, 202101)
 
 
-  param_local$train$training <- c(202103, 202102, 202101, 202012, 202011, 202010, 202009, 202008, 202007)
+  param_local$train$training <- c(202103, 202102, 202101, 202012, 202011, 202010, 202009, 202008, 202007, 202006,202005)
   param_local$train$validation <- c(202104)
   param_local$train$testing <- c(202105)
 
@@ -245,7 +243,7 @@ HT_tuning_guantesblancos <- function( pmyexp, pinputexps, pserver="local")
 {
   if( -1 == (param_local <- exp_init( pmyexp, pinputexps, pserver ))$resultado ) return( 0 )# linea fija
 
-  param_local$meta$script <- "/src/workflow-09/z561_HT_lightgbm.r"
+  param_local$meta$script <- "/src/workflow-11/z561_HT_lightgbm.r"
 
   # En caso que se haga cross validation, se usa esta cantidad de folds
   param_local$lgb_crossvalidation_folds <- 5
@@ -302,14 +300,14 @@ ZZ_final_guantesblancos <- function( pmyexp, pinputexps, pserver="local")
 {
   if( -1 == (param_local <- exp_init( pmyexp, pinputexps, pserver ))$resultado ) return( 0 )# linea fija
 
-  param_local$meta$script <- "/src/workflow-09/z571_ZZ_final.r"
+  param_local$meta$script <- "/src/workflow-11/z881_ZZ_final_semillerio.r"
 
   # Que modelos quiero, segun su posicion en el ranking e la Bayesian Optimizacion, ordenado por ganancia descendente
   param_local$modelos_rank <- c(1)
 
-  param_local$kaggle$envios_desde <-  10000L
-  param_local$kaggle$envios_hasta <- 11500L
-  param_local$kaggle$envios_salto <-   500L
+  param_local$kaggle$envios_desde <-  11000L
+  param_local$kaggle$envios_hasta <- 14000L
+  param_local$kaggle$envios_salto <-   1000L
 
   # para el caso que deba graficar
   param_local$graficar$envios_desde <-  8000L
@@ -333,18 +331,18 @@ corrida_guantesblancos_202109 <- function( pnombrewf, pvirgen=FALSE )
 {
   if( -1 == exp_wf_init( pnombrewf, pvirgen) ) return(0) # linea fija
 
-  DT_incorporar_dataset_default( "DT0001_9", "competencia_2024.csv.gz")
-  CA_catastrophe_default( "CA0001_9", "DT0001_9" )
+  DT_incorporar_dataset_default( "DT0001_11", "competencia_2024.csv.gz")
+  CA_catastrophe_default( "CA0001_11", "DT0001_11" )
 
-  DR_drifting_guantesblancos( "DR0001_9", "CA0001_9" )
-  FE_historia_guantesblancos( "FE0001_9", "DR0001_9" )
+  DR_drifting_guantesblancos( "DR0001_11", "CA0001_11" )
+  FE_historia_guantesblancos( "FE0001_11", "DR0001_11" )
 
-  # TS_strategy_guantesblancos_202109( "TS0001_9", "FE0001_9" )
+  TS_strategy_guantesblancos_202109( "TS0001_11", "FE0001_11" )
 
-  # HT_tuning_guantesblancos( "HT0001_9", "TS0001_9" )
+  HT_tuning_guantesblancos( "HT0001_11", "TS0001_11" )
 
-  # # El ZZ depente de HT y TS
-  # ZZ_final_guantesblancos( "ZZ0001_9", c("HT0001_9","TS0001_9") )
+  # El ZZ depente de HT y TS
+  ZZ_final_guantesblancos( "ZZ0001_11", c("HT0001_11","TS0001_11") )
 
 
   exp_wf_end( pnombrewf, pvirgen ) # linea fija
@@ -354,19 +352,19 @@ corrida_guantesblancos_202109 <- function( pnombrewf, pvirgen=FALSE )
 # Que predice 202107
 # genera completas curvas de ganancia
 #   NO genera archivos para Kaggle
-# por favor notal como este script parte de FE0001_9
+# por favor notal como este script parte de FE0001_11
 
 corrida_guantesblancos_202107 <- function( pnombrewf, pvirgen=FALSE )
 {
   if( -1 == exp_wf_init( pnombrewf, pvirgen) ) return(0) # linea fija
 
-  # Ya tengo corrido FE0001_9 y parto de alli
-  TS_strategy_guantesblancos_202107( "TS0002_9", "FE0001_9" )
+  # Ya tengo corrido FE0001_11 y parto de alli
+  TS_strategy_guantesblancos_202107( "TS0002_11", "FE0001_11" )
 
-  HT_tuning_guantesblancos( "HT0002_9", "TS0002_9" )
+  HT_tuning_guantesblancos( "HT0002_11", "TS0002_11" )
 
   # El ZZ depente de HT y TS
-  ZZ_final_guantesblancos( "ZZ0002_9", c("HT0002_9", "TS0002_9") )
+  ZZ_final_guantesblancos( "ZZ0002_11", c("HT0002_11", "TS0002_11") )
 
 
   exp_wf_end( pnombrewf, pvirgen ) # linea fija
@@ -377,13 +375,12 @@ corrida_guantesblancos_202107 <- function( pnombrewf, pvirgen=FALSE )
 
 
 # Hago primero esta corrida que me genera los experimentos
-# DT0001_9, CA0001_9, DR0001_9, FE0001_9, TS0001_9, HT0001_9 y ZZ0001_9
-corrida_guantesblancos_202109( "gb01_9" )
+# DT0001_11, CA0001_11, DR0001_11, FE0001_11, TS0001_11, HT0001_11 y ZZ0001_11
+corrida_guantesblancos_202109( "gb01_11" )
 
 
-# Luego partiendo de  FE0001_9
-# genero TS0002_9, HT0002_9 y ZZ0002_9
+# Luego partiendo de  FE0001_11
+# genero TS0002_11, HT0002_11 y ZZ0002_11
 
-corrida_guantesblancos_202107( "gb02_9" )
+# corrida_guantesblancos_202107( "gb02_11" )
 
- 
