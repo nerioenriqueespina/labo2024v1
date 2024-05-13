@@ -138,10 +138,10 @@ FE_historia_baseline <- function( pmyexp, pinputexps, pserver="local")
 
   # baseline
   param_local$RandomForest$run <- TRUE
-  param_local$RandomForest$num.trees <- 100
-  param_local$RandomForest$max.depth <- 8
-  param_local$RandomForest$min.node.size <- 500
-  param_local$RandomForest$mtry <- 20
+  param_local$RandomForest$num.trees <- 20
+  param_local$RandomForest$max.depth <- 4
+  param_local$RandomForest$min.node.size <- 1000
+  param_local$RandomForest$mtry <- 40
 
   # varia de 0.0 a 2.0, si es 0.0 NO se activan
   param_local$CanaritosAsesinos$ratio <- 1.5
@@ -318,18 +318,18 @@ corrida_baseline_semillerio_202109 <- function( pnombrewf, pvirgen=FALSE )
 {
   if( -1 == exp_wf_init( pnombrewf, pvirgen) ) return(0) # linea fija
 
-  DT_incorporar_dataset_baseline( "DT0001-sem_02", "competencia_2024.csv.gz")
-  CA_catastrophe_baseline( "CA0001-sem_02", "DT0001-sem_02" )
+  DT_incorporar_dataset_baseline( "DT0001-sem_03", "competencia_2024.csv.gz")
+  CA_catastrophe_baseline( "CA0001-sem_03", "DT0001-sem_03" )
 
-  DR_drifting_baseline( "DR0001-sem_02", "CA0001-sem_02" )
-  FE_historia_baseline( "FE0001-sem_02", "DR0001-sem_02" )
+  DR_drifting_baseline( "DR0001-sem_03", "CA0001-sem_03" )
+  FE_historia_baseline( "FE0001-sem_03", "DR0001-sem_03" )
 
-  TS_strategy_baseline_202109( "TS0001-sem_02", "FE0001-sem_02" )
+  TS_strategy_baseline_202109( "TS0001-sem_03", "FE0001-sem_03" )
 
-  HT_tuning_baseline( "HT0001-sem_02", "TS0001-sem_02" )
+  HT_tuning_baseline( "HT0001-sem_03", "TS0001-sem_03" )
 
   # El ZZ depente de HT y TS
-  ZZ_final_semillerio_baseline( "ZZ0001-sem_02", c("HT0001-sem_02","TS0001-sem_02") )
+  ZZ_final_semillerio_baseline( "ZZ0001-sem_03", c("HT0001-sem_03","TS0001-sem_03") )
 
 
   exp_wf_end( pnombrewf, pvirgen ) # linea fija
@@ -346,18 +346,18 @@ corrida_baseline_semillerio_202107 <- function( pnombrewf, pvirgen=FALSE )
 {
   if( -1 == exp_wf_init( pnombrewf, pvirgen) ) return(0) # linea fija
 
-  DT_incorporar_dataset_baseline( "DT0001-sem_02", "competencia_2024.csv.gz")
-  CA_catastrophe_baseline( "CA0001-sem_02", "DT0001-sem_02" )
+  DT_incorporar_dataset_baseline( "DT0001-sem_03", "competencia_2024.csv.gz")
+  CA_catastrophe_baseline( "CA0001-sem_03", "DT0001-sem_03" )
 
-  DR_drifting_baseline( "DR0001-sem_02", "CA0001-sem_02" )
-  FE_historia_baseline( "FE0001-sem_02", "DR0001-sem_02" )
+  DR_drifting_baseline( "DR0001-sem_03", "CA0001-sem_03" )
+  FE_historia_baseline( "FE0001-sem_03", "DR0001-sem_03" )
 
-  TS_strategy_baseline_202107( "TS0002-sem_02", "FE0001-sem_02" )
+  TS_strategy_baseline_202107( "TS0002-sem_03", "FE0001-sem_03" )
 
-  HT_tuning_baseline( "HT0002-sem_02", "TS0002-sem_02" )
+  HT_tuning_baseline( "HT0002-sem_03", "TS0002-sem_03" )
 
   # El ZZ depente de HT y TS
-  ZZ_final_semillerio_baseline( "ZZ0002-sem_02", c("HT0002-sem_02","TS0002-sem_02") )
+  ZZ_final_semillerio_baseline( "ZZ0002-sem_03", c("HT0002-sem_03","TS0002-sem_03") )
 
 
   exp_wf_end( pnombrewf, pvirgen ) # linea fija
@@ -368,7 +368,7 @@ corrida_baseline_semillerio_202107 <- function( pnombrewf, pvirgen=FALSE )
 #Aqui empieza el programa
 
 
-corrida_baseline_semillerio_202109( "basem01_sem_02" )
+corrida_baseline_semillerio_202109( "basem01_sem_03" )
 
 
 # Luego partiendo de  FE0001
