@@ -318,18 +318,18 @@ corrida_baseline_semillerio_202109 <- function( pnombrewf, pvirgen=FALSE )
 {
   if( -1 == exp_wf_init( pnombrewf, pvirgen) ) return(0) # linea fija
 
-  DT_incorporar_dataset_baseline( "DT0001-sem_01", "competencia_2024.csv.gz")
-  CA_catastrophe_baseline( "CA0001-sem_01", "DT0001-sem_01" )
+  DT_incorporar_dataset_baseline( "DT0001-sem_02", "competencia_2024.csv.gz")
+  CA_catastrophe_baseline( "CA0001-sem_02", "DT0001-sem_02" )
 
-  DR_drifting_baseline( "DR0001-sem_01", "CA0001-sem_01" )
-  FE_historia_baseline( "FE0001-sem_01", "DR0001-sem_01" )
+  DR_drifting_baseline( "DR0001-sem_02", "CA0001-sem_02" )
+  FE_historia_baseline( "FE0001-sem_02", "DR0001-sem_02" )
 
-  TS_strategy_baseline_202109( "TS0001-sem_01", "FE0001-sem_01" )
+  TS_strategy_baseline_202109( "TS0001-sem_02", "FE0001-sem_02" )
 
-  HT_tuning_baseline( "HT0001-sem_01", "TS0001-sem_01" )
+  HT_tuning_baseline( "HT0001-sem_02", "TS0001-sem_02" )
 
   # El ZZ depente de HT y TS
-  ZZ_final_semillerio_baseline( "ZZ0001-sem_01", c("HT0001-sem_01","TS0001-sem_01") )
+  ZZ_final_semillerio_baseline( "ZZ0001-sem_02", c("HT0001-sem_02","TS0001-sem_02") )
 
 
   exp_wf_end( pnombrewf, pvirgen ) # linea fija
@@ -346,18 +346,18 @@ corrida_baseline_semillerio_202107 <- function( pnombrewf, pvirgen=FALSE )
 {
   if( -1 == exp_wf_init( pnombrewf, pvirgen) ) return(0) # linea fija
 
-  DT_incorporar_dataset_baseline( "DT0001-sem_01", "competencia_2024.csv.gz")
-  CA_catastrophe_baseline( "CA0001-sem_01", "DT0001-sem_01" )
+  DT_incorporar_dataset_baseline( "DT0001-sem_02", "competencia_2024.csv.gz")
+  CA_catastrophe_baseline( "CA0001-sem_02", "DT0001-sem_02" )
 
-  DR_drifting_baseline( "DR0001-sem_01", "CA0001-sem_01" )
-  FE_historia_baseline( "FE0001-sem_01", "DR0001-sem_01" )
+  DR_drifting_baseline( "DR0001-sem_02", "CA0001-sem_02" )
+  FE_historia_baseline( "FE0001-sem_02", "DR0001-sem_02" )
 
-  TS_strategy_baseline_202107( "TS0002-sem_01", "FE0001-sem_01" )
+  TS_strategy_baseline_202107( "TS0002-sem_02", "FE0001-sem_02" )
 
-  HT_tuning_baseline( "HT0002-sem_01", "TS0002-sem_01" )
+  HT_tuning_baseline( "HT0002-sem_02", "TS0002-sem_02" )
 
   # El ZZ depente de HT y TS
-  ZZ_final_semillerio_baseline( "ZZ0002-sem_01", c("HT0002-sem_01","TS0002-sem_01") )
+  ZZ_final_semillerio_baseline( "ZZ0002-sem_02", c("HT0002-sem_02","TS0002-sem_02") )
 
 
   exp_wf_end( pnombrewf, pvirgen ) # linea fija
@@ -368,7 +368,7 @@ corrida_baseline_semillerio_202107 <- function( pnombrewf, pvirgen=FALSE )
 #Aqui empieza el programa
 
 
-corrida_baseline_semillerio_202109( "basem01_01" )
+corrida_baseline_semillerio_202109( "basem01_sem_02" )
 
 
 # Luego partiendo de  FE0001
